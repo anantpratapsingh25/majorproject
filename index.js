@@ -104,8 +104,9 @@ app.use((req, res, next) => {
 // Root Route - Homepage
 // ============================
 app.get("/", (req, res) => {
-    res.render("home"); // create views/home.ejs for your homepage
+    res.render("index");
 });
+
 
 // ============================
 // Demo User Route
