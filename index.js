@@ -104,7 +104,8 @@ app.use((req, res, next) => {
 // Root Route - Homepage
 // ============================
 app.get("/", (req, res) => {
-    res.render("index");
+    res.render("listings/index");
+
 });
 
 
