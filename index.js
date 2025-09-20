@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
-
 const express = require("express");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -15,7 +14,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const multer = require("multer");
-const { storage } = require("./cloudConfig.js"); // make sure cloudConfig exports { storage }
+const { storage } = require("./cloudConfig.js");
 const upload = multer({ storage });
 
 // Routes
@@ -27,7 +26,7 @@ const app = express();
 // ============================
 // Database Connection
 // ============================
-const dbUrl = process.env.ATLAS_URL || "mongodb://127.0.0.1:27017/your-db"; // fallback
+const dbUrl = process.env.ATLAS_URL || "mongodb://127.0.0.1:27017/your-db";
 
 async function main() {
     try {
@@ -59,10 +58,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // ============================
 const mongoStore = MongoStore.create({
     mongoUrl: dbUrl,
-    crypto: {
-        secret: process.env.SECRET || "supersecret"
-    },
-    touchAfter: 24 * 3600 // 1 day
+    crypto: { secret: process.env.SECRET || "supersecret" },
+    touchAfter: 24 * 3600
 });
 
 mongoStore.on("error", (e) => {
@@ -71,12 +68,12 @@ mongoStore.on("error", (e) => {
 
 const sessionOptions = {
     store: mongoStore,
-    secret: process.env.SECRET,
+    secret: process.env.SECRET || "supersecret",
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 };
@@ -104,7 +101,14 @@ app.use((req, res, next) => {
 });
 
 // ============================
-// Demo User Route (for testing)
+// Root Route - Homepage
+// ============================
+app.get("/", (req, res) => {
+    res.render("home"); // create views/home.ejs for your homepage
+});
+
+// ============================
+// Demo User Route
 // ============================
 app.get("/demouser", async (req, res, next) => {
     try {
@@ -134,13 +138,14 @@ app.use((err, req, res, next) => {
     if (res.headersSent) {
         return next(err);
     }
-    res.status(500).render("error", { err }); // ✅ use views/error.ejs instead of listings/error.ejs
+    res.status(500).render("error", { err }); // make sure views/error.ejs exists
 });
 
 // ============================
 // Server Start
 // ============================
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
+
