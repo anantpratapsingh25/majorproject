@@ -13,6 +13,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Listing = require("./models/listing.js"); // Make sure Listing model path is correct
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
 const upload = multer({ storage });
@@ -103,11 +104,14 @@ app.use((req, res, next) => {
 // ============================
 // Root Route - Homepage
 // ============================
-app.get("/", (req, res) => {
-    res.render("listings/index");
-
+app.get("/", async (req, res, next) => {
+    try {
+        const allListings = await Listing.find({});
+        res.render("listings/index", { allListings });
+    } catch (err) {
+        next(err);
+    }
 });
-
 
 // ============================
 // Demo User Route
@@ -133,14 +137,12 @@ app.use("/listings", listingsRoutes);
 app.use("/", userRoutes);
 
 // ============================
-// Error Handler (last)
+// Error Handler (last middleware)
 // ============================
 app.use((err, req, res, next) => {
     console.error("🔥 ERROR:", err);
-    if (res.headersSent) {
-        return next(err);
-    }
-    res.status(500).render("error", { err }); // make sure views/error.ejs exists
+    if (res.headersSent) return next(err);
+    res.status(500).render("error", { err }); // Make sure views/error.ejs exists
 });
 
 // ============================
@@ -150,4 +152,5 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
+
 
