@@ -1,0 +1,144 @@
+
+.body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh !important;
+    background: white;
+    font-family: 'Poppins', sans-serif;
+    padding-bottom: 50px   !important;
+    margin-right: 0% !important;
+    margin: 0 !important;
+}
+
+
+.container img{
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh !important;
+    height: 30px;
+    width: 300px;
+    background:white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar {
+    height: 5rem;
+    background-color: white!important;  /* navbar background white */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* subtle shadow */
+   
+}
+    
+
+.navbar a {
+    color: black !important;   /* navbar text white */
+    text-decoration: none;     /* remove underline */
+}
+
+.navbar a:hover {
+    color:yellow!important;  /* hover color */
+}
+
+
+.footer-links a {
+    text-decoration: none;
+    color: black;
+}
+
+footer {
+   
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+
+.footer-social {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.card {
+    margin: 1rem !important;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
+   
+    overflow: hidden;
+    background-color: white;
+}
+
+
+
+
+.card-img-top {
+    border-radius: 1.5rem !important;
+    display: block;
+    width: 100%!important;
+    height: 20rem !important;
+    object-fit: cover;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+.btn-dark {
+    border-radius: 5px;
+    padding: 5px 15px;
+     background-color:rgb(227, 125, 125);
+    
+}
+details{
+    margin: 20px !important;
+    padding: 10px;
+   
+    border-radius: 100px;
+    background-color: #f9f9f9;  
+}
+.detailed-card .card-body {
+    padding: 20px;
+    margin-left: 69px !important;
+
+
+}.card-body{
+    padding: 0% !important;
+    margin-left: 10px!important;
+}
+.card{
+    border-radius: 1.5rem !important;
+
+}
+footer{
+    
+    background-color: white;
+}
+main {
+    flex: 1; /* Pushes footer down */
+}
+.review{
+    margin-left: 69px !important;
+}
+.nav-logo {
+  height: 70px;   /* make smaller */
+  width: 70px;    /* fixed width (not responsive) */
+  object-fit: contain; /* keep proportions */
+}
+
+/* map */
+
+
+ #map { 
+    width: 800px; 
+    height: 400px; 
+    border-radius: 15px;
+    margin-bottom: 20px;
+    margin-left: 300px;
+  } 
+ 

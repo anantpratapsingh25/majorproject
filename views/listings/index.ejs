@@ -1,0 +1,116 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<style>
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 2rem;
+  align-items: center;
+}
+.filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  cursor: pointer;
+  margin-top: 2rem;
+  opacity: 0.8;
+}
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.filter p {
+  font-size: 0.8rem;
+}
+.tax {
+  display: none;
+}
+.filter i {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+.togel-switch {
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
+  border: 1px solid black;
+  padding: 1rem;
+  border-radius: 2rem;
+  margin-left: 5rem;
+}
+</style>
+
+<div id="filters">
+  <div class="filter">
+    <div><i class="fa-solid fa-fire"></i></div>
+    <p>trending</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-house"></i></div>
+    <p>Rooms</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-mountain-city"></i></div>
+    <p>Iconic city</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-campground"></i></div>
+    <p>camping</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-person-swimming"></i></div>
+    <p>swimming pool</p>
+  </div>
+
+  <div class="togel-switch">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Display taxes</label>
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 mt-3">
+  <% for (let listing of allListings) { %>
+    <div class="col">
+      <a href="/listings/<%= listing._id %>" style="text-decoration: none; color: inherit;">
+        <div class="card h-100 shadow-sm">
+          <!-- ✅ Corrected Image -->
+          <img src="<%= listing.image.url || listing.image.path || 'https://example.com/default.jpg' %>"
+               class="card-img-top"
+               alt="<%= listing.title %>">
+
+          <!-- Card body -->
+          <div class="card-body">
+            <p class="card-text mb-1">
+              <b><%= listing.title %></b>
+            </p>
+            <p class="text-muted mb-1">
+              ₹<%= listing.price %><i class="tax">+18%GST</i>
+            </p>
+            <p class="mb-0"><%= listing.location %>, <%= listing.country %></p>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  let switchToggle = document.getElementById('switchCheckDefault');
+  switchToggle.addEventListener('change', function() {
+    let taxElements = document.querySelectorAll('.tax');
+    taxElements.forEach(el => {
+      if (this.checked) {
+        el.style.display = 'inline';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  });
+</script>
